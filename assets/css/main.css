@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Minimalist Apple-style prose configuration without the heavy @tailwindcss/typography plugin */
+  .prose-apple h1 {
+    @apply text-4xl font-semibold tracking-tight text-apple-textPrimary mt-10 mb-6;
+  }
+  .prose-apple h2 {
+    @apply text-2xl font-semibold tracking-tight text-apple-textPrimary mt-10 mb-4 border-b border-gray-100 pb-2;
+  }
+  .prose-apple h3 {
+    @apply text-xl font-medium tracking-tight text-apple-textPrimary mt-8 mb-4;
+  }
+  .prose-apple p {
+    @apply text-lg text-apple-textPrimary leading-relaxed mb-6;
+  }
+  .prose-apple a {
+    @apply text-apple-link hover:underline transition-colors;
+  }
+  .prose-apple ul {
+    @apply list-disc list-inside mb-6 space-y-2;
+  }
+  .prose-apple ol {
+    @apply list-decimal list-inside mb-6 space-y-2;
+  }
+  .prose-apple li {
+    @apply text-lg text-apple-textPrimary leading-relaxed;
+  }
+  .prose-apple blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic text-apple-textSecondary my-6;
+  }
+  .prose-apple pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm my-6 font-mono;
+  }
+  .prose-apple code {
+    @apply bg-gray-100 text-apple-textPrimary px-1.5 py-0.5 rounded text-sm font-mono border border-gray-200;
+  }
+  .prose-apple pre code {
+    @apply bg-transparent text-gray-100 p-0 border-none rounded-none;
+  }
+  .prose-apple img {
+    @apply rounded-xl shadow-sm my-8 mx-auto;
+  }
+}

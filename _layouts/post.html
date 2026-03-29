@@ -1,0 +1,41 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="mb-12">
+    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight text-apple-textPrimary mb-4 leading-tight">
+      {{ page.title | escape }}
+    </h1>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 text-apple-textSecondary">
+      <time datetime="{{ page.date | date_to_xmlschema }}" class="text-sm">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {% if page.ms.author %}
+        {% assign author = site.data.authors[page.ms.author] %}
+        {% if author %}
+          <div class="flex items-center gap-2">
+            <span class="hidden sm:inline">•</span>
+            <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="w-6 h-6 rounded-full">
+            <span class="text-sm">{{ author.name }}</span>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% if page.image %}
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="mt-8 rounded-xl w-full object-cover max-h-[400px]">
+    {% endif %}
+  </header>
+
+  <div class="prose prose-apple max-w-none">
+    {{ content }}
+  </div>
+
+  {% if page.tags.size > 0 %}
+    <div class="mt-12 pt-8 border-t border-gray-100 flex gap-2 flex-wrap">
+      {% for tag in page.tags %}
+        <span class="px-3 py-1 bg-gray-100 text-apple-textSecondary rounded-full text-xs font-medium">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>

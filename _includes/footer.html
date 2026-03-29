@@ -1,0 +1,18 @@
+<footer class="bg-apple-bg border-t border-gray-200 mt-16 py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-4">
+    <div class="text-sm text-apple-textSecondary text-center">
+      &copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.
+    </div>
+    <div class="text-sm text-apple-textSecondary text-center max-w-2xl">
+      Content licensed under <a href="{{ '/LICENSE-CONTENT' | relative_url }}" class="hover:text-apple-link transition-colors">CC BY 4.0</a>. Code licensed under <a href="{{ '/LICENSE' | relative_url }}" class="hover:text-apple-link transition-colors">MIT</a>.
+    </div>
+    <div class="flex space-x-4 mt-2">
+      <a href="https://github.com/{{ site.github_username }}" class="text-apple-textSecondary hover:text-apple-link transition-colors">
+        GitHub
+      </a>
+      <a href="/feed.xml" class="text-apple-textSecondary hover:text-apple-link transition-colors">
+        RSS
+      </a>
+    </div>
+  </div>
+</footer>

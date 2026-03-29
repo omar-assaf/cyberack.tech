@@ -1,0 +1,20 @@
+services:
+  - azure
+  - intune
+  - entra
+  - exchange
+  - powershell
+  - networking
+  - security
+  - linux
+  - windows
+  - scripting
+  - general
+
+topics:
+  - how-to
+  - conceptual
+  - reference
+  - tutorial
+  - overview
+  - quickstart

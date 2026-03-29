@@ -1,0 +1,27 @@
+{
+  "name": "cyberack.tech",
+  "version": "1.0.0",
+  "description": "CybeRack tech blog based on Jekyll and Tailwind CSS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./assets/css/main.css -o ./_site/assets/css/main.css --watch",
+    "build": "tailwindcss -i ./assets/css/main.css -o ./assets/css/main.css --minify",
+    "lint:md": "markdownlint-cli2 \"_posts/**/*.md\" \"_drafts/**/*.md\"",
+    "validate": "node scripts/validate-frontmatter.js",
+    "new-post": "node scripts/new-post.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omar-assaf/cyberack.tech.git"
+  },
+  "author": "Omar Assaf",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "js-yaml": "^4.1.0",
+    "markdownlint-cli2": "^0.13.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  }
+}

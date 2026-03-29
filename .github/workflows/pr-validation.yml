@@ -1,0 +1,154 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate PR commits
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  frontmatter-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run frontmatter validation
+        run: npm run validate
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run markdownlint
+        run: npm run lint:md
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run cspell
+        run: npx cspell "**/*.md" "**/*.html"
+
+  jekyll-build:
+    needs: [frontmatter-validation, markdown-lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install Node dependencies
+        run: npm ci
+        
+      - name: Build Tailwind CSS
+        run: npm run build
+        
+      - name: Build Jekyll site with drafts
+        run: bundle exec jekyll build --drafts
+        
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jekyll-site
+          path: _site/
+          retention-days: 1
+
+  html-validation:
+    needs: jekyll-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jekyll-site
+          path: _site
+          
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          
+      - name: Install HTML Proofer
+        run: gem install html-proofer
+        
+      - name: Run HTML Proofer
+        run: htmlproofer _site --disable-external --ignore-empty-alt --ignore-missing-alt
+
+  accessibility-check:
+    needs: jekyll-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jekyll-site
+          path: _site
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install pa11y-ci
+        run: npm install -g pa11y-ci
+        
+      - name: Serve and Check
+        run: |
+          npx serve _site &
+          sleep 3
+          # Simple check on a few generated files
+          pa11y-ci --sitemap http://localhost:3000/sitemap.xml || true # Don't strictly fail PRs on a11y yet to avoid blocking content creators too heavily

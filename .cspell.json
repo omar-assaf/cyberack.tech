@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "cyberack",
+    "omarassaf",
+    "tailwindcss",
+    "htmlproofer",
+    "markdownlint",
+    "commitlint",
+    "kramdown",
+    "frontmatter",
+    "Autopilot",
+    "Intune",
+    "Entra",
+    "WDAC",
+    "OOBE",
+    "Powershell",
+    "xmlschema",
+    "Assaf",
+    "nosniff"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "_site/**",
+    "vendor/**",
+    "package-lock.json",
+    "Gemfile.lock"
+  ]
+}

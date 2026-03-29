@@ -1,0 +1,62 @@
+<!-- Plausible Analytics (Privacy friendly, no cookies, loads unconditionally) -->
+<script defer data-domain="cyberack.tech" src="https://plausible.io/js/script.js" nonce="{{ include.nonce }}"></script>
+
+<!-- Google Analytics 4 (Loads only after consent) -->
+<script nonce="{{ include.nonce }}">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  
+  // Default deny
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+
+  function loadGA() {
+    const script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'; // Replace with real ID
+    script.async = true;
+    script.setAttribute('nonce', '{{ include.nonce }}');
+    document.head.appendChild(script);
+
+    script.onload = function() {
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    };
+  }
+
+  // Check consent status on load
+  document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem('ga_consent') === 'granted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted'
+      });
+      loadGA();
+    } else if (localStorage.getItem('ga_consent') !== 'denied') {
+      // Show consent banner
+      const banner = document.createElement('div');
+      banner.id = 'cookie-consent-banner';
+      banner.className = 'fixed bottom-0 left-0 right-0 bg-apple-bg text-apple-textPrimary p-4 shadow-lg flex flex-col sm:flex-row justify-between items-center z-50 border-t border-gray-200';
+      banner.innerHTML = `
+        <p class="text-sm mb-4 sm:mb-0 max-w-2xl">We use Google Analytics to measure performance. You can choose to accept or decline. We also use privacy-friendly Plausible Analytics which collects no personal data.</p>
+        <div class="flex gap-2">
+          <button id="btn-accept-cookies" class="bg-apple-link text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors">Accept</button>
+          <button id="btn-decline-cookies" class="bg-gray-200 text-apple-textPrimary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300 transition-colors">Decline</button>
+        </div>
+      `;
+      document.body.appendChild(banner);
+
+      document.getElementById('btn-accept-cookies').addEventListener('click', function() {
+        localStorage.setItem('ga_consent', 'granted');
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+        loadGA();
+        banner.remove();
+      });
+
+      document.getElementById('btn-decline-cookies').addEventListener('click', function() {
+        localStorage.setItem('ga_consent', 'denied');
+        banner.remove();
+      });
+    }
+  });
+</script>
