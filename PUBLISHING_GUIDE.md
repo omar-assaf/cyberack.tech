@@ -97,7 +97,31 @@ Once you push to the `main` branch, GitHub Actions will automatically check your
 
 ---
 
-## 5. Maintaining Frequently Used Files
+## 5. How the Website is Built (Updating Design)
+
+If you ever need to modify the design, such as adding new colors or tweaking the layout (`_layouts` or `_includes`), you are changing the Tailwind CSS code. 
+
+**Automatic Building (The Easy Way):**
+When you change HTML or Markdown files, GitHub Actions builds everything for you automatically when you push to the `main` branch. It runs a script to gather all your CSS and make it perfectly styled. You **do not** need to build the site yourself just to publish a post.
+
+**Manual Building (For Advanced Users Testing Locally):**
+If you are running the site locally to test new designs before publishing, you must rebuild the CSS so Tailwind can discover your new classes.
+
+1. In your terminal, run the development compiler:
+   ```bash
+   npm run dev
+   ```
+   This will watch your files and compile new CSS whenever you press save.
+2. If you just want to run the final build once, use:
+   ```bash
+   npm run build
+   ```
+
+*(Again, if you are simply writing a blog post and pushing to GitHub, you can ignore this step. GitHub Actions handles `npm run build` for you!)*
+
+---
+
+## 6. Maintaining Frequently Used Files
 
 If you need to change the site's navigation, authors, or categories, edit the files in the `_data/` folder:
 
