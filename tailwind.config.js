@@ -25,11 +25,14 @@ module.exports = {
         ],
       },
       colors: {
-        apple: {
-          bg: '#fbfbfd',
-          textPrimary: '#1d1d1f',
-          textSecondary: '#86868b',
-          link: '#0066cc',
+        framer: {
+          bg: '#000000',
+          card: '#111111',
+          border: '#222222',
+          textPrimary: '#ffffff',
+          textSecondary: '#888888',
+          accent: '#0099ff',
+          accentHover: '#33adff'
         }
       }
     },

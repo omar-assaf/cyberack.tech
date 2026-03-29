@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Framer Academy-style prose configuration */
+  .prose-framer h1 {
+    @apply text-4xl md:text-5xl font-bold tracking-tight text-framer-textPrimary mt-10 mb-6 leading-tight;
+  }
+  .prose-framer h2 {
+    @apply text-2xl md:text-3xl font-bold tracking-tight text-framer-textPrimary mt-12 mb-4;
+  }
+  .prose-framer h3 {
+    @apply text-xl font-semibold tracking-tight text-framer-textPrimary mt-8 mb-4;
+  }
+  .prose-framer p {
+    @apply text-lg text-framer-textSecondary leading-relaxed mb-6;
+  }
+  .prose-framer a {
+    @apply text-framer-textPrimary hover:text-framer-accent underline decoration-framer-border decoration-2 underline-offset-4 hover:decoration-framer-accent transition-colors;
+  }
+  .prose-framer ul {
+    @apply list-none mb-6 space-y-3 pl-0;
+  }
+  .prose-framer ol {
+    @apply list-decimal list-outside mb-6 space-y-3 pl-6 text-framer-textSecondary text-lg;
+  }
+  .prose-framer li {
+    @apply text-lg text-framer-textSecondary leading-relaxed relative;
+  }
+  .prose-framer ul li::before {
+    content: "•";
+    @apply text-framer-border absolute -left-5 text-xl;
+  }
+  .prose-framer blockquote {
+    @apply border-l-2 border-framer-accent pl-6 italic text-framer-textPrimary text-xl my-8 font-medium;
+  }
+  .prose-framer pre {
+    @apply bg-framer-card border border-framer-border text-gray-300 p-5 rounded-xl overflow-x-auto text-sm my-8 font-mono;
+  }
+  .prose-framer code {
+    @apply bg-framer-card text-framer-textPrimary px-1.5 py-0.5 rounded-md text-sm font-mono border border-framer-border;
+  }
+  .prose-framer pre code {
+    @apply bg-transparent text-gray-300 p-0 border-none rounded-none;
+  }
+  .prose-framer img {
+    @apply rounded-2xl border border-framer-border my-10 mx-auto;
+  }
+  
+  /* Framer-like interactive card */
+  .framer-card {
+    @apply block bg-framer-card border border-framer-border rounded-2xl p-6 transition-all duration-300 hover:border-gray-500 hover:-translate-y-1 overflow-hidden relative;
+  }
+}

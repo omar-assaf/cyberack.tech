@@ -4,27 +4,44 @@ layout: default
 
 <div class="home">
   {% if page.title %}
-    <h1 class="text-4xl font-semibold tracking-tight text-apple-textPrimary mb-8">{{ page.title }}</h1>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-framer-textPrimary mb-8 leading-tight">{{ page.title }}</h1>
   {% endif %}
 
-  {{ content }}
+  <div class="prose-framer max-w-none mb-16">
+    {{ content }}
+  </div>
 
   {% if site.posts.size > 0 %}
-    <h2 class="text-2xl font-semibold tracking-tight text-apple-textPrimary mt-12 mb-6">Latest Posts</h2>
-    <ul class="space-y-8">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-framer-textPrimary mt-12 mb-8">Latest Articles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% for post in site.posts %}
         {% unless post.draft %}
-        <li class="group block border-b border-gray-100 pb-8">
-          <span class="text-sm text-apple-textSecondary block mb-1">{{ post.date | date: "%B %-d, %Y" }}</span>
-          <h3 class="text-xl font-medium text-apple-textPrimary group-hover:text-apple-link transition-colors">
-            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          </h3>
-          {% if post.description %}
-            <p class="text-apple-textSecondary mt-2 leading-relaxed">{{ post.description }}</p>
-          {% endif %}
-        </li>
+        <a href="{{ post.url | relative_url }}" class="framer-card group flex flex-col justify-between min-h-[280px]">
+          <div>
+            {% if post.tags %}
+              <div class="flex gap-2 mb-4">
+                <span class="px-2.5 py-1 bg-[#1a1a1a] border border-[#333333] text-framer-textSecondary text-xs rounded-md uppercase tracking-wider font-semibold group-hover:text-framer-accent transition-colors">{{ post.tags[0] }}</span>
+              </div>
+            {% endif %}
+            <h3 class="text-2xl font-bold text-framer-textPrimary mb-3 leading-snug group-hover:text-framer-accent transition-colors">
+              {{ post.title | escape }}
+            </h3>
+            {% if post.description %}
+              <p class="text-framer-textSecondary text-base leading-relaxed line-clamp-3">
+                {{ post.description }}
+              </p>
+            {% endif %}
+          </div>
+          
+          <div class="mt-8 flex items-center justify-between border-t border-framer-border pt-4">
+            <span class="text-sm font-medium text-framer-textSecondary">{{ post.date | date: "%B %-d, %Y" }}</span>
+            <span class="text-framer-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 font-bold">
+              Read &rarr;
+            </span>
+          </div>
+        </a>
         {% endunless %}
       {% endfor %}
-    </ul>
+    </div>
   {% endif %}
 </div>

@@ -1,16 +1,16 @@
-<footer class="bg-apple-bg border-t border-gray-200 mt-16 py-8">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-4">
-    <div class="text-sm text-apple-textSecondary text-center">
-      &copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.
+<footer class="bg-framer-bg border-t border-framer-border mt-20 py-12">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6">
+    <div class="text-sm text-framer-textSecondary font-medium text-center">
+      &copy; {{ site.time | date: "%Y" }} {{ site.title }}. Built for builders.
     </div>
-    <div class="text-sm text-apple-textSecondary text-center max-w-2xl">
-      Content licensed under <a href="{{ '/LICENSE-CONTENT' | relative_url }}" class="hover:text-apple-link transition-colors">CC BY 4.0</a>. Code licensed under <a href="{{ '/LICENSE' | relative_url }}" class="hover:text-apple-link transition-colors">MIT</a>.
+    <div class="text-sm text-framer-textSecondary text-center max-w-2xl leading-relaxed">
+      Content licensed under <a href="{{ '/LICENSE-CONTENT' | relative_url }}" class="hover:text-framer-textPrimary underline decoration-framer-border underline-offset-4 transition-colors">CC BY 4.0</a>. Code licensed under <a href="{{ '/LICENSE' | relative_url }}" class="hover:text-framer-textPrimary underline decoration-framer-border underline-offset-4 transition-colors">MIT</a>.
     </div>
-    <div class="flex space-x-4 mt-2">
-      <a href="https://github.com/{{ site.github_username }}" class="text-apple-textSecondary hover:text-apple-link transition-colors">
+    <div class="flex space-x-6 mt-4">
+      <a href="https://github.com/{{ site.github_username }}" class="text-framer-textSecondary hover:text-framer-textPrimary transition-colors font-medium">
         GitHub
       </a>
-      <a href="/feed.xml" class="text-apple-textSecondary hover:text-apple-link transition-colors">
+      <a href="/feed.xml" class="text-framer-textSecondary hover:text-framer-textPrimary transition-colors font-medium">
         RSS
       </a>
     </div>

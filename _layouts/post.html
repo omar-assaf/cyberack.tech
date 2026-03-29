@@ -3,39 +3,60 @@ layout: default
 ---
 
 <article class="post">
-  <header class="mb-12">
-    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight text-apple-textPrimary mb-4 leading-tight">
+  <header class="mb-16 mt-8">
+    <div class="flex gap-2 mb-6">
+      {% if page.ms.service %}
+        <span class="px-2.5 py-1 bg-[#1a1a1a] border border-[#333333] text-framer-textSecondary text-xs rounded-md uppercase tracking-wider font-semibold">{{ page.ms.service }}</span>
+      {% endif %}
+      {% if page.ms.topic %}
+        <span class="px-2.5 py-1 bg-[#1a1a1a] border border-[#333333] text-framer-textSecondary text-xs rounded-md uppercase tracking-wider font-semibold">{{ page.ms.topic }}</span>
+      {% endif %}
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-framer-textPrimary mb-6 leading-tight max-w-4xl">
       {{ page.title | escape }}
     </h1>
-    <div class="flex flex-col sm:flex-row sm:items-center gap-4 text-apple-textSecondary">
-      <time datetime="{{ page.date | date_to_xmlschema }}" class="text-sm">
-        {{ page.date | date: "%B %-d, %Y" }}
-      </time>
+    {% if page.description %}
+      <p class="text-xl md:text-2xl text-framer-textSecondary mb-10 max-w-3xl leading-relaxed">
+        {{ page.description }}
+      </p>
+    {% endif %}
+    
+    <div class="flex flex-col sm:flex-row sm:items-center gap-6 text-framer-textSecondary border-y border-framer-border py-6">
       {% if page.ms.author %}
         {% assign author = site.data.authors[page.ms.author] %}
         {% if author %}
-          <div class="flex items-center gap-2">
-            <span class="hidden sm:inline">•</span>
-            <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="w-6 h-6 rounded-full">
-            <span class="text-sm">{{ author.name }}</span>
+          <div class="flex items-center gap-3">
+            <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="w-10 h-10 rounded-full border border-[#333333]">
+            <div class="flex flex-col">
+              <span class="text-sm font-semibold text-framer-textPrimary">{{ author.name }}</span>
+              <span class="text-xs text-framer-textSecondary">{{ author.bio | truncate: 50 }}</span>
+            </div>
           </div>
+          <span class="hidden sm:block w-px h-8 bg-framer-border"></span>
         {% endif %}
       {% endif %}
+      <time datetime="{{ page.date | date_to_xmlschema }}" class="text-sm font-medium">
+        Published on {{ page.date | date: "%B %-d, %Y" }}
+      </time>
     </div>
+    
     {% if page.image %}
-      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="mt-8 rounded-xl w-full object-cover max-h-[400px]">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="mt-12 rounded-2xl w-full object-cover border border-framer-border shadow-2xl">
     {% endif %}
   </header>
 
-  <div class="prose prose-apple max-w-none">
+  <div class="prose-framer max-w-3xl mx-auto">
     {{ content }}
   </div>
 
   {% if page.tags.size > 0 %}
-    <div class="mt-12 pt-8 border-t border-gray-100 flex gap-2 flex-wrap">
-      {% for tag in page.tags %}
-        <span class="px-3 py-1 bg-gray-100 text-apple-textSecondary rounded-full text-xs font-medium">{{ tag }}</span>
-      {% endfor %}
+    <div class="max-w-3xl mx-auto mt-20 pt-10 border-t border-framer-border flex flex-col gap-4">
+      <span class="text-sm font-semibold text-framer-textPrimary uppercase tracking-wider">Related Tags</span>
+      <div class="flex gap-3 flex-wrap">
+        {% for tag in page.tags %}
+          <span class="px-4 py-2 bg-[#1a1a1a] border border-[#333333] hover:border-framer-accent text-framer-textPrimary rounded-lg text-sm font-medium transition-colors cursor-pointer">#{{ tag }}</span>
+        {% endfor %}
+      </div>
     </div>
   {% endif %}
 </article>
