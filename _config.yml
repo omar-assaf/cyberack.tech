@@ -1,7 +1,7 @@
 title: CybeRack
-email: your-email@example.com
+email: hello@cyberack.tech
 description: >-
-  CybeRack - cybersecurity, automation, cloud, scripting, and infrastructure projects.
+  CybeRack - Endpoint, cybersecurity, automation, cloud, scripting, and infrastructure projects.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://cyberack.tech" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: omar_assaf
